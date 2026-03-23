@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+  
+        sort(piles.begin(), piles.end());
+        int left = 1;
+        int right = piles.back(); 
+        
+        while(left <= right) {
+            
+            int speed = (left + right) / 2;
+            long long hours = 0;  
+            for(int pile : piles) {
+                hours += (pile + speed - 1) / speed;
+            }
+            if(hours <= h) {
+                right = speed - 1; 
+            } else {
+                left = speed + 1; 
+            }
+        }
+        
+        return left;
+    }
+};
