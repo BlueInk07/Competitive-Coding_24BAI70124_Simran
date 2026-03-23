@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        if (n < 2) return false;
+
+        unordered_map<int,int> firstIndex;
+        firstIndex[0] = -1;
+
+        int prefixMod = 0;
+
+        for(int i = 0; i < n; i++) {
+            prefixMod = (prefixMod + nums[i]) % k;
+
+            if(firstIndex.count(prefixMod)) {
+                if(i - firstIndex[prefixMod] >= 2)
+                    return true;
+            } 
+            else {
+                firstIndex[prefixMod] = i;
+            }
+        }
+        return false;
+    }
+};
